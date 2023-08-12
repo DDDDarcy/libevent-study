@@ -6,10 +6,10 @@
 
 
 Demo2::Demo2(){  
-    std::cout << "create Demo2!" << std::endl;
+    LOG(LogLevel::DEBUG, "create Demo2!~");
 }
 
 Demo2::~Demo2(){
-    std::cout << "destory Demo2!" << std::endl;
+    LOG(LogLevel::DEBUG, "destory Demo2!~");
 }
 

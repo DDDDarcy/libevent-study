@@ -2,4 +2,4 @@
 
 cd build && make && cd ..
 
-build/demo1/./demo1
+build/demo2/./demo2
