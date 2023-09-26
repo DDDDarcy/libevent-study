@@ -7,9 +7,11 @@
         switch(LogLevel)                                            \
         {                                                           \
             case DEBUG: std::cout << "Debug: "                      \
+                        << __FUNCTION__ << ": "                     \
                         << output << "." << std::endl;              \
                 break;                                              \
             case ERROR: std::cout << "Error: "                      \
+                        << __FUNCTION__ << ": "                     \
                         << output << "." << std::endl;              \
                 break;                                              \
         }                                                           \
