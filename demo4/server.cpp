@@ -1,5 +1,7 @@
 #include "../Log/Logger.h"
 #include"server.h"
+#include "singleton.h"
+#include "client.h"
 
 #include <arpa/inet.h>
 #include <asm-generic/socket.h>
@@ -19,7 +21,9 @@ Server::Server()
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server_addr.sin_port = htons(8999);
     server_addr.sin_family = AF_INET;
+
     is_init_addr = true;
+    Singleton<Client>::Getinstance();
 }
 
 void Server::Socket()
@@ -59,6 +63,8 @@ void Server::Accept()
 {   
     if(is_init_listen)
     {
+        std::shared_ptr<Client> clients = Singleton<Client>::GetInstancePointer();
+
         while(!is_stop){
             socklen_t len;
             std::shared_ptr<struct sockaddr_in> client = std::make_shared<struct sockaddr_in>();
@@ -69,12 +75,12 @@ void Server::Accept()
                 LOG(LogLevel::DEBUG, "accept fail!");
                 exit(0);
             }
-            
+            clients->push(std::make_pair(fd, client));
             
             std::string str(inet_ntoa(client->sin_addr));
-            std::cout << str << std::endl;
             LOG(LogLevel::DEBUG, std::string("client connected, ip : ")+ str);
         }
+        
     }
     close(server_sock_fd);
     
