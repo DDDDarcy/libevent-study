@@ -52,9 +52,13 @@ private:
                 Singleton::InstancePointer = std::make_shared<Derived>(std::forward<Args>(args)...);
             }
         }
+        return Singleton::InstancePointer;
     }
     
 };
 
 template <class Derived>
 std::shared_ptr<Derived> InstancePointer = nullptr;
+
+template <class Derived>
+std::mutex Singleton<Derived>::Lock;

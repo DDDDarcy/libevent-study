@@ -15,7 +15,6 @@
 
 
 
-
 Server::Server()
 {
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -24,6 +23,7 @@ Server::Server()
 
     is_init_addr = true;
     Singleton<Client>::Getinstance();
+    //InstancePointer<Client> = Singleton<Client>::GetInstancePointer();
 }
 
 void Server::Socket()
@@ -63,7 +63,7 @@ void Server::Accept()
 {   
     if(is_init_listen)
     {
-        std::shared_ptr<Client> clients = Singleton<Client>::GetInstancePointer();
+        //std::shared_ptr<Client> clients = Singleton<Client>::GetInstancePointer();
 
         while(!is_stop){
             socklen_t len;
@@ -75,12 +75,12 @@ void Server::Accept()
                 LOG(LogLevel::DEBUG, "accept fail!");
                 exit(0);
             }
-            clients->push(std::make_pair(fd, client));
+            //clients->push(std::make_pair(fd, client));
             
             std::string str(inet_ntoa(client->sin_addr));
             LOG(LogLevel::DEBUG, std::string("client connected, ip : ")+ str);
         }
-        
+
     }
     close(server_sock_fd);
     
