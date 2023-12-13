@@ -9,6 +9,7 @@
 Demo5::Demo5()
 {
     std::cout << "Hello Client!" << std::endl;
+    int a = 5;
 }
 
 Demo5::~Demo5()
